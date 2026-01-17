@@ -62,9 +62,6 @@ app.post('/api/update-dns', async (req, res) => {
             console.log(`Calling Namecheap for ${domain}...`);
             const response = await axios.get(url);
 
-            // Console log the raw XML for debugging
-            // console.log(`Raw XML for ${domain}:`, response.data);
-
             const parsed = await parseNamecheapResponse(response.data);
 
             if (parsed.ApiResponse && parsed.ApiResponse.$.Status === 'OK') {
@@ -92,11 +89,10 @@ app.post('/api/update-dns', async (req, res) => {
             console.error(`Exception for ${domain}:`, error);
             res.write(JSON.stringify({ domain: domain, status: 'error', message: errorMsg }) + '\n');
         }
-    }
 
-    // Add a small delay to avoid hitting rate limits (30 requests/minute)
-    await new Promise(resolve => setTimeout(resolve, 2000));
-}
+        // Add a delay to avoid hitting rate limits (2 seconds)
+        await new Promise(resolve => setTimeout(resolve, 2000));
+    }
 
     res.end();
 });
