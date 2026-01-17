@@ -12,6 +12,7 @@ app.use(cors());
 
 app.use(bodyParser.json());
 app.use((req, res, next) => {
+    // Sirf Method aur URL print karega (API Key nahi)
     console.log(`${new Date().toISOString()} - ${req.method} ${req.url}`);
     next();
 });
@@ -28,6 +29,7 @@ const parseNamecheapResponse = (xml) => {
 };
 
 app.post('/api/update-dns', async (req, res) => {
+    // Log hata diya gaya hai
     const { apiUser, apiKey, domains, nameservers, clientIp } = req.body;
 
     if (!apiUser || !apiKey || !domains || !domains.length || !nameservers || !nameservers.length || !clientIp) {
