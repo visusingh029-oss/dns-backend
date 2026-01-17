@@ -28,7 +28,6 @@ const parseNamecheapResponse = (xml) => {
 };
 
 app.post('/api/update-dns', async (req, res) => {
-    console.log('Received request:', JSON.stringify(req.body, null, 2));
     const { apiUser, apiKey, domains, nameservers, clientIp } = req.body;
 
     if (!apiUser || !apiKey || !domains || !domains.length || !nameservers || !nameservers.length || !clientIp) {
