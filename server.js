@@ -94,6 +94,10 @@ app.post('/api/update-dns', async (req, res) => {
         }
     }
 
+    // Add a small delay to avoid hitting rate limits (30 requests/minute)
+    await new Promise(resolve => setTimeout(resolve, 2000));
+}
+
     res.end();
 });
 
